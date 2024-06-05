@@ -1,15 +1,16 @@
-// import { Navigate } from 'react-router-dom';
+import Topbar from '../../components/Topbar';
+import Sidebar from '../../components/Sidebar';
 
 export default function Dashboard() {
-  // const token = localStorage.getItem('token');
-
-  // if (!token) return <Navigate to="/signin" replace={true} />;
-
   return (
-    <main>
-      <h1 className="text-2xl font-bold">
-        Selamat datang di halaman dashboard
-      </h1>
-    </main>
+    <div className="flex">
+      <Sidebar />
+      <main className="ml-64 p-10">
+        <Topbar />
+        <h1 className="text-2xl font-bold">
+          Selamat datang di halaman dashboard
+        </h1>
+      </main>
+    </div>
   );
 }

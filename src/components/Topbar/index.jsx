@@ -1,6 +1,6 @@
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { clearToken } from "../../redux/authSlice";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { clearToken } from '../../redux/authSlice';
 
 export default function Topbar() {
   const navigate = useNavigate();
@@ -8,7 +8,7 @@ export default function Topbar() {
 
   const handleSignOut = () => {
     dispatch(clearToken());
-    navigate("/signin");
+    navigate('/signin');
   };
   return (
     <div className="h-16 flex items-center justify-end px-4 border border-gray-300">
