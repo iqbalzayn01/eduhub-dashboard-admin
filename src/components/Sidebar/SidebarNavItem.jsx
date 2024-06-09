@@ -14,22 +14,34 @@ export const SidebarNavItem = () => {
   return (
     <ul className="space-y-2">
       <li className="hover:bg-gray-700 p-4">
-        <Link to="/">Dashboard</Link>
+        <Link className="text-white" to="/">
+          Dashboard
+        </Link>
       </li>
       <li className="hover:bg-gray-700 p-4">
-        <Link to="/categories">Daftar Event</Link>
+        <Link className="text-white" to="/events">
+          Daftar Event
+        </Link>
       </li>
       <li className="hover:bg-gray-700 p-4">
-        <Link to="/products">Daftar User</Link>
+        <Link className="text-white" to="/daftaruser">
+          Daftar User
+        </Link>
       </li>
       <li className="hover:bg-gray-700 p-4">
-        <Link to="/customers">Daftar Talents</Link>
+        <Link className="text-white" to="/customers">
+          Daftar Talents
+        </Link>
       </li>
       <li className="hover:bg-gray-700 p-4">
-        <Link to="/orders">History Pembayaran</Link>
+        <Link className="text-white" to="/orders">
+          History Pembayaran
+        </Link>
       </li>
       <li className="hover:bg-gray-700 p-4">
-        <button onClick={handleSignOut}>Sign Out</button>
+        <button onClick={handleSignOut} className=" text-red-500">
+          Sign Out
+        </button>
       </li>
     </ul>
   );

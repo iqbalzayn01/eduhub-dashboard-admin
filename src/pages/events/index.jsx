@@ -1,87 +1,101 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-  //  Navigate,
-  useNavigate,
-} from 'react-router-dom';
+import { useEffect, useState } from 'react';
+// import {
+//   useSelector,
+//   useDispatch
+// } from 'react-redux';
+// import {
+//    Navigate,
+//   useNavigate,
+// } from 'react-router-dom';
 
 import SButton from '../../components/Button';
-import { refreshAccessToken } from '../../redux/authSlice';
-import { setCategories, removeCategory } from '../../redux/categoriesSlice';
-import { getData, deleteData } from '../../utils/fetch';
+import Sidebar from '../../components/Sidebar';
+import Topbar from '../../components/Topbar';
+import EventModal from './eventModal';
 
 export default function Events() {
-  const categories = useSelector((state) => state.categories.categories);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     // const token = localStorage.getItem("token");
-
     // if (!token) return <Navigate to="/signin" replace={true} />;
-    const fetchData = async () => {
-      try {
-        const res = await getData(`/cms/categories/`);
-        dispatch(setCategories(res.data.data));
-      } catch (error) {
-        if (error.response && error.response.status === 401) {
-          dispatch(refreshAccessToken());
-        } else {
-          console.error('Error fetching categories:', error);
-        }
-      }
-    };
+    //dispath()
+  }, []);
 
-    fetchData();
-  }, [dispatch]);
-
-  const handleDelete = async (categoryId) => {
-    try {
-      await deleteData(`/cms/categories/${categoryId}`);
-      dispatch(removeCategory(categoryId));
-    } catch (error) {
-      console.error('Error deleting category:', error);
-    }
+  const handleCreateEvent = () => {
+    setSelectedEvent(null);
+    setIsModalOpen(true);
   };
 
-  if (!Array.isArray(categories)) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <main className="w-full mx-auto p-5">
-      <div className="flex items-center justify-between mb-5">
-        <h1 className="font-bold text-2xl">Kategori</h1>
-        <SButton
-          action={() => navigate('/categories/create')}
-          className="bg-blue-500 hover:bg-blue-600 font-medium text-white text-lg px-4 py-2 rounded-xl"
-        >
-          + Kategori
-        </SButton>
-      </div>
-      <ul className="flex flex-col gap-5">
-        {categories.map((category) => (
-          <li key={category._id} className="flex items-center justify-between">
-            <span>{category.name}</span>
-            <div className="flex gap-5">
-              <SButton
-                type="button"
-                className="bg-green-500 hover:bg-green-600 px-5 py-2 text-center text-white rounded-lg"
-                action={() => navigate(`/categories/edit/${category._id}`)}
-              >
-                Edit
-              </SButton>
-              <SButton
-                type="button"
-                className="bg-red-500 hover:bg-red-600 px-5 py-2 text-center text-white rounded-lg"
-                action={() => handleDelete(category._id)}
-              >
-                Hapus
-              </SButton>
+    <div className="flex">
+      <Sidebar />
+      <main className="flex-1">
+        <Topbar />
+        <div className="mx-auto w-full p-5">
+          <div className="flex items-center justify-between mb-5">
+            <h1 className="font-bold text-2xl">Daftar Event</h1>
+            <SButton
+              action={handleCreateEvent}
+              className="bg-blue-500 hover:bg-blue-600 font-medium text-white text-lg px-4 py-2 rounded-xl"
+            >
+              Add Event
+            </SButton>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div className="card border border-slate-400 p-10 rounded-lg">
+              <div className="flex flex-col gap-6">
+                <h2 className="text-2xl font-medium">Nama Kegiatan</h2>
+                <hr />
+                <p>Deskripsi Kegiatan</p>
+                <p>Nama Pembicara</p>
+                <p>Link Zoom</p>
+                <div className="flex flex-col">
+                  <p className="font-semibold">Jadwal:</p>
+                  <p></p>
+                </div>
+                <div className="flex items-start justify-between">
+                  <div className="flex flex-col gap-2">
+                    <p className="font-semibold">Status Kegiatan:</p>
+                    <p className="bg-emerald-500 text-white text-center font-medium uppercase px-3 py-2 rounded-lg">
+                      Online
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <p className="font-semibold">Harga:</p>
+                    <p className="text-xl">10.000</p>
+                  </div>
+                </div>
+                <hr className="bg-slate-400" />
+                <div className="flex items-center gap-2">
+                  <button
+                    className="bg-blue-500 text-white px-2 py-1 rounded"
+                    // onClick={() => handleEdit(event)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="bg-red-500 text-white px-2 py-1 rounded"
+                    // onClick={handlePopUpDelete}
+                  >
+                    Hapus
+                  </button>
+                </div>
+              </div>
             </div>
-          </li>
-        ))}
-      </ul>
-    </main>
+          </div>
+        </div>
+      </main>
+      {isModalOpen && (
+        <EventModal
+          onClose={() => setIsModalOpen(false)}
+          // isEdit={isEdit}
+          eventData={selectedEvent}
+        />
+      )}
+    </div>
   );
 }

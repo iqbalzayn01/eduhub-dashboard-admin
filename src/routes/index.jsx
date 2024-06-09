@@ -7,9 +7,8 @@ import {
 import PageSignIn from '../pages/signin';
 import RequireAuth from './requireAuth';
 import Dashboard from '../pages/dashboard';
-// import Topbar from '../components/Topbar';
-// import Sidebar from '../components/Sidebar';
 import Events from '../pages/events';
+import DaftarUser from '../pages/users';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +17,7 @@ const router = createBrowserRouter(
       <Route element={<RequireAuth />}>
         <Route path="/*" element={<Dashboard />} />
         <Route path="/events" element={<Events />} />
+        <Route path="/daftaruser" element={<DaftarUser />} />
       </Route>
     </>
   )

@@ -2,9 +2,9 @@ import { SidebarNavItem } from './SidebarNavItem';
 
 export default function Sidebar() {
   return (
-    <div className="h-screen w-64 flex flex-col border border-gray-300 rounded-e-xl">
+    <div className="h-screen w-64 flex flex-col bg-gray-800 rounded-e-lg">
       <div className="p-4">
-        <h1 className="font-bold text-2xl uppercase tracking-wider">
+        <h1 className="font-bold text-2xl text-white uppercase tracking-wider">
           Eduhub <i className="text-blue-500">Admin</i>
         </h1>
       </div>
